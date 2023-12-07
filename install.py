@@ -45,9 +45,9 @@ def install_bepinex_latest():
 
     options = result["assets"]
     # TODO: Check os and select correct platform
-    print("Select your platform:")
+    print("Select your platform:", force=True)
     for i in range(1, len(options) + 1):
-        print("[" + str(i) + "] " + options[i - 1]["name"])
+        print("[" + str(i) + "] " + options[i - 1]["name"], force=True)
 
     platform = int(input("Enter the number of your platform: "))
     option = options[platform - 1]
@@ -61,20 +61,16 @@ def install_bepinex_latest():
     Utils.extract(filename)
     Utils.cleanup(filename)
 
-    core_filepath = "\\BepInEx\\core"
-
-    # Update BepInEx core
-    if os.path.exists(default_steam_dir):
-        print("Moving BepInEx to " + default_steam_dir)
-        if os.path.exists(default_steam_dir + core_filepath):
-            print("Removing old BepInEx core")
-            shutil.rmtree(default_steam_dir + core_filepath)
-        shutil.move(core_filepath[1:], default_steam_dir + "\\BepInEx\\")
-    else:
-        print(
-            "Could not find Steam directory, please move BepInEx to your game directory manually"
-        )
-
+    for filename in os.listdir("."):
+        exclusion_list = {"install.py", "README.md", ".git", ".gitignore", ".vscode"}
+        if filename not in exclusion_list:
+            try:
+                shutil.move(filename, default_steam_dir + "\\" + filename)
+            except:
+                shutil.rmtree(default_steam_dir + "\\" + filename)
+                shutil.move(filename, default_steam_dir + "\\" + filename)
+            finally:
+                print("Moved " + filename)
 
 def install_more_company_1_6_0():
     filename = "MoreCompany.zip"
