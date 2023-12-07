@@ -98,6 +98,10 @@ def install_more_company_1_6_0():
     # Move MoreCompany.dll to plugins folder
     downloaded_dll_path = "\\BepInEx\\plugins\\MoreCompany.dll"
     target_dll_path = default_steam_dir + downloaded_dll_path
+    if os.path.exists(target_dll_path):
+        os.remove(target_dll_path)
+    else:
+        os.makedirs(os.path.dirname(target_dll_path), exist_ok=True)
     shutil.copy(downloaded_dll_path[1:], target_dll_path)
 
 
