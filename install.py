@@ -79,7 +79,7 @@ def install_more_company_1_6_0():
     # TODO: ...don't?
     ssl._create_default_https_context = ssl._create_unverified_context
     more_company_url = (
-        "https://thunderstore.io/package/download/notnotnotswipez/MoreCompany/1.6.0/"
+        "https://thunderstore.io/package/download/notnotnotswipez/MoreCompany/1.7.1/"
     )
 
     print("Downloading " + more_company_url)
